@@ -2,6 +2,7 @@ import train from './train.png';
 import './App.css';
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
+import * as turf from '@turf/turf'
 
 
 
@@ -36,7 +37,6 @@ function App() {
       el.className = 'marker';
       new mapboxgl.Marker(el).setLngLat([8.4409, 47.2759]).addTo(map.current);
 
-      map.current.on('load', () => {
         map.current.addLayer({
           type: 'circle',
           paint: {
@@ -45,7 +45,6 @@ function App() {
             'circle-color': 'rgb(171, 72, 33)'
           }
         });
-      });
       
     });
 
@@ -53,6 +52,44 @@ function App() {
       map.current.resize();
     });
    
+
+    //trying the maps
+    map.current.on('load', () => {
+    map.current.addSource('route', {
+      'type': 'geojson',
+      'data': {
+        'type': 'Feature',
+        'properties': {},
+        'geometry': {
+          'type': 'LineString',
+          'coordinates': [
+            [8.5417, 47.3769],
+            [8.5416, 47.3768],
+            [8.5415, 47.3769],
+            [8.5416, 47.3789],
+            [8.5417, 47.3769]
+           
+          ]
+        }
+      }
+    });
+    map.current.addLayer({
+      'id': 'route',
+      'type': 'line',
+      'source': 'route',
+      'layout': {
+        'line-join': 'round',
+        'line-cap': 'round'
+      },
+      'paint': {
+        'line-color': '#888',
+        'line-width': 8
+      }
+    });
+    });
+
+    //trying the end
+
   });
 
 
@@ -65,8 +102,12 @@ function App() {
       setZoom(map.current.getZoom().toFixed(2));
     });
   });
+
+
  
-  
+
+
+
 
   return (
 
