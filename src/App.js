@@ -36,7 +36,7 @@ function App() {
       el.className = 'marker';
       new mapboxgl.Marker(el).setLngLat([8.4409, 47.2759]).addTo(map.current);
 
-      map.current.on('load', () => {
+      //map.current.on('load', () => {
         map.current.addLayer({
           type: 'circle',
           paint: {
@@ -45,9 +45,39 @@ function App() {
             'circle-color': 'rgb(171, 72, 33)'
           }
         });
+
+        map.current.addSource('route', {
+          'type': 'geojson',
+          'data': {
+            'type': 'Feature',
+            'properties': {},
+            'geometry': {
+              'type': 'LineString',
+              'coordinates': [
+              [8.4409, 47.4759],
+              [8.4409, 47.6759],
+              [8.4409, 47.8759]
+              ]
+            }
+          }
+        });
+        
+        map.current.addLayer({
+          'id': 'route',
+          'type': 'line',
+          'source': 'route',
+          'layout': {
+          'line-join': 'round',
+          'line-cap': 'round'
+          },
+          'paint': {
+          'line-color': '#888',
+          'line-width': 8
+          }
+          });
       });
       
-    });
+    //});
 
     map.current.once('load', () => {
       map.current.resize();
