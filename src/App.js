@@ -15,7 +15,10 @@ function App() {
   //<Map></Map>
   return (
     <div className ='main'>
-      <h1>Happy coding</h1>
+      <h1>Happy coding,
+        There is a pull request, and i have to after change the color of the chart to mach your table, it look amazing.
+        let also add the accuracy in the table
+      </h1>
       <div style={{display: 'flex', flexDirection: 'row'}}>
       {map}
       <Table mapComponent={mapComponentRef} />
