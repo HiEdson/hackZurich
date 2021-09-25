@@ -2,20 +2,21 @@ import train from './train.png';
 import './App.css';
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
-//import * as turf from '@turf/turf'
+import mapboxToken from './AllKeys'
+//components
 import Map from './Map'
+import ChartLine from './ChartLine'
+import PlaceFromCoor from './PlaceFromCoor';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiaG9zc2lpIiwiYSI6ImNra2sxeXVlbjI0cW4ydnF1bXM4eWdyd3YifQ.clb20iW-d2O_Aj5WRYwIiQ';
 
 function App() {
-  
   return (
-
     <div className ='main'>
-
-      <h1>Happy coding</h1>
+      <h1>Hey guys, our code have some packages created 2 days ago. I think its a problem. We will have to migrate the code to a updated one.</h1>
       <Map></Map>
-  
+      <ChartLine></ChartLine>
+      <PlaceFromCoor></PlaceFromCoor>
     </div>
   );
   
