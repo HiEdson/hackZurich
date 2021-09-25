@@ -13,7 +13,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaG9zc2lpIiwiYSI6ImNra2sxeXVlbjI0cW4ydnF1bXM4e
 function App() {
   return (
     <div className ='main'>
-      <h1>Hey guys, our code have some packages created 2 days ago. I think its a problem. We will have to migrate the code to a updated one.</h1>
+      <h1>Hey guys, our code have some packages created 2 days ago. 
+        I think its a problem. We will have to migrate the code to a updated one.
+      </h1>
       <Map></Map>
       <ChartLine></ChartLine>
       <PlaceFromCoor></PlaceFromCoor>
