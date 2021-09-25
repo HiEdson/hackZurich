@@ -41,14 +41,14 @@ const Table = (props)=>{
           Header: 'Time',
           accessor: 'timestamp',
         },
-        {
+        /*{
             Header: 'Longitude',
             accessor: 'lng',
         },
         {
             Header: 'Latitude',
             accessor: 'lat',
-        },
+        },*/
         ],
         []
     )
@@ -131,14 +131,16 @@ const Table = (props)=>{
 const marker = new mapboxgl.Marker();
 
 function drawHighlightMarker(map, row){
-  marker.setLngLat([row.values.lng, row.values.lat]);
+  console.log(row);
+  marker.setLngLat([row.original.lng, row.original.lat]);
   marker.addTo(map);
+  if(typeof window.Microsoft == undefined){return}
   var map = new window.Microsoft.Maps.Map(document.getElementById('locationPicture'), {
     //mapTypeId: window.Microsoft.Maps.MapTypeId.road,
     //mapTypeId: window.Microsoft.Maps.MapTypeId.streetside,
     mapTypeId: window.Microsoft.Maps.MapTypeId.birdseye,
     //zoom: 18,
-    center: new window.Microsoft.Maps.Location(row.values.lat, row.values.lng)
+    center: new window.Microsoft.Maps.Location(row.original.lat, row.original.lng)
   });
   //map.setView({ mapTypeId: window.Microsoft.Maps.MapTypeId.streetside });
 }
