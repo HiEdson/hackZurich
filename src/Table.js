@@ -1,26 +1,30 @@
-import React, { useRef } from 'react';
+import React, { useEffect } from 'react';
 import {useTable} from 'react-table';
 import mapboxgl from 'mapbox-gl';
 
+const BingApiKey = 'AldVDbYSTRXvur92g-3l7xC6VlU8uykROwqGGL1P1L76lkHxgM0lO7avQOOs4Nam';
+
 const Table = (props)=>{
+  console.log(props);
+
     const data = React.useMemo(
         () => [
         {
             problem: 'Cable problem upcoming',
             timestamp: '24.9.2021 12:04',
-            lon: 8.4409,
+            lng: 8.4409,
             lat: 47.2759
         },
         {
             problem: 'Potential interference',
             timestamp: '25.9.2021 15:07',
-            lon: 8.4409,
+            lng: 8.4409,
             lat: 47.4759
         },
         {
             problem: 'Cable problem upcoming',
             timestamp: '25.9.2021 17:22',
-            lon: 8.4409,
+            lng: 8.4409,
             lat: 47.6759
         },
         ],
@@ -39,7 +43,7 @@ const Table = (props)=>{
         },
         {
             Header: 'Longitude',
-            accessor: 'lon',
+            accessor: 'lng',
         },
         {
             Header: 'Latitude',
@@ -57,8 +61,24 @@ const Table = (props)=>{
         prepareRow,
     } = useTable({ columns, data })
 
+    const locationPicture = React.createRef();
+
+    useEffect(() => {
+      const script = document.createElement('script');
+    
+      script.src = 'https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key='+BingApiKey;
+      //script.async = true;
+    
+      document.body.appendChild(script);
+    
+      return () => {
+        document.body.removeChild(script);
+      }
+    }, []);
+
     return (
     <div>
+        
         <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
           <thead>
             {headerGroups.map(headerGroup => (
@@ -83,7 +103,7 @@ const Table = (props)=>{
             {rows.map(row => {
               prepareRow(row)
               return (
-                <tr {...row.getRowProps()} onMouseEnter={() => {console.log(props.mapComponent); drawMarkerOnMap(props.mapComponent.current, 8.4409, 47.6759)}}>
+                <tr {...row.getRowProps({onMouseEnter: () => {drawHighlightMarker(props.mapComponent.current, row)}, onMouseLeave: () => removeHighlightMarker(props.mapComponent.current)})}>
                   {row.cells.map(cell => {
                     return (
                       <td
@@ -103,14 +123,28 @@ const Table = (props)=>{
             })}
           </tbody>
         </table>
+        <div id="locationPicture"></div>
       </div>
     );
 }
 
-function drawMarkerOnMap(map, lng, lat){
-  const marker = new mapboxgl.Marker()
-  marker.setLngLat([lng, lat])
-  marker.addTo(map)
+const marker = new mapboxgl.Marker();
+
+function drawHighlightMarker(map, row){
+  marker.setLngLat([row.values.lng, row.values.lat]);
+  marker.addTo(map);
+  var map = new window.Microsoft.Maps.Map(document.getElementById('locationPicture'), {
+    //mapTypeId: window.Microsoft.Maps.MapTypeId.road,
+    //mapTypeId: window.Microsoft.Maps.MapTypeId.streetside,
+    mapTypeId: window.Microsoft.Maps.MapTypeId.birdseye,
+    //zoom: 18,
+    center: new window.Microsoft.Maps.Location(row.values.lat, row.values.lng)
+  });
+  //map.setView({ mapTypeId: window.Microsoft.Maps.MapTypeId.streetside });
+}
+
+function removeHighlightMarker(map){
+  marker.remove();
 }
 
 export default Table;
