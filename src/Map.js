@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 //import * as turf from '@turf/turf'
+import trackPositions from './track_geopositions.json'
 
 const Map=(props)=>{
     const mapContainer = useRef(null);
@@ -47,11 +48,12 @@ const Map=(props)=>{
                     'properties': {},
                     'geometry': {
                         'type': 'LineString',
-                        'coordinates': [
+                        'coordinates': trackPositions
+                        /*[
                             [8.4409, 47.4759],
                             [8.4409, 47.6759],
                             [8.4409, 47.8759]
-                        ]
+                        ]*/
                     }
                 }
             });
