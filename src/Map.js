@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf'
 
-const Map=()=>{
+const Map=(props)=>{
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [lng, setLng] = useState(8.5417);
@@ -20,6 +20,7 @@ const Map=()=>{
             center: [lng, lat],
             zoom: zoom
         });
+        props.setMapComponentRef(map);
 
         map.current.on('load', () => {
             const marker = new mapboxgl.Marker()
@@ -30,7 +31,6 @@ const Map=()=>{
             el.className = 'marker';
             new mapboxgl.Marker(el).setLngLat([8.4409, 47.2759]).addTo(map.current);
 
-            //map.current.on('load', () => {
             map.current.addLayer({
                 type: 'circle',
                 paint: {
