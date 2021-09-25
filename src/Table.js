@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import {useTable} from 'react-table';
 import mapboxgl from 'mapbox-gl';
 
+
 const Table = (props)=>{
     const data = React.useMemo(
         () => [

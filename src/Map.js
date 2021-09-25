@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
-import * as turf from '@turf/turf'
+//import * as turf from '@turf/turf'
 
 const Map=(props)=>{
     const mapContainer = useRef(null);
