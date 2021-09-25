@@ -13,23 +13,19 @@ import PlaceFromCoor from './PlaceFromCoor';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiaG9zc2lpIiwiYSI6ImNra2sxeXVlbjI0cW4ydnF1bXM4eWdyd3YifQ.clb20iW-d2O_Aj5WRYwIiQ';
 
-
 function App() {
   const [mapComponentRef, setMapComponentRef] = useState(null);
-  const map = React.createElement(Map, { setMapComponentRef: setMapComponentRef });
-
-  //This code will be used to get city name from lat long in the
-  const [data, setData] = useState([0, 0]);
+  //This code will be used to get city name from lat long
+  const [data, setData] = useState([0,0]);
   const GetPlaces = () => {
     //test coordinate
     setData([8.5417, 47.3769]);
     console.log(data)
   }
-
-  //<Map></Map>    
+  const map = React.createElement(Map, {setMapComponentRef: setMapComponentRef});
+  
   return (
     <div className ='main'>
-      
       <h1>Hey guys, our code have some packages created 2 days ago. 
         instead of lat and long, let display the name of the city, and when the 
         map zooms we should show the lat long with the on click on the flag.
