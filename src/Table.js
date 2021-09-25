@@ -123,7 +123,7 @@ const Table = (props)=>{
             })}
           </tbody>
         </table>
-        <div id="locationPicture"></div>
+        <div id="locationPicture" style={{width: '500px', height: '400px'}}></div>
       </div>
     );
 }

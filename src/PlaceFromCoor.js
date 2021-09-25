@@ -3,8 +3,14 @@ import React from "react";
 const token ='pk.eyJ1IjoiaG9zc2lpIiwiYSI6ImNra2sxeXVlbjI0cW4ydnF1bXM4eWdyd3YifQ.clb20iW-d2O_Aj5WRYwIiQ';
 
 const PlaceFromCoor =(props)=>{
-
-    const dispCity=(data)=> document.getElementById('cityname').innerHTML= data;
+    
+    const dispCity=(data)=>{
+        if (typeof (data) != 'undefined') {
+            document.getElementById('cityname').innerHTML = data;
+        }else{
+            document.getElementById('cityname').innerHTML = '';
+        }
+    }
 
     let LatLng = props.GetPlaces;
     fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${LatLng[0]},${LatLng[1]}.json?access_token=`+token, { method: 'GET'})
