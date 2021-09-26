@@ -5,13 +5,13 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 const CountDown=(props)=>{
     let dur = props.time;
     return(
-       <div className='countEl'>
-
+       <div className='countEl' style={{}}>
+            <h3>Faulty signal upcoming in seconds</h3>
             <CountdownCircleTimer
                 isPlaying
                 duration={dur}
                 colors={[
-                    ['#004777', 0.33],
+                    ['#003777', 0.33],
                     ['#F7B801', 0.33],
                     ['#A30000', 0.33],
                 ]}
@@ -19,7 +19,7 @@ const CountDown=(props)=>{
             >
                 {({ remainingTime }) => remainingTime}
             </CountdownCircleTimer>
-            <p>Time to the problem accur</p>
+           
        </div>
 
     )

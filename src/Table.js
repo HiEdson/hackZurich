@@ -11,19 +11,19 @@ const Table = (props)=>{
     const data = React.useMemo(
         () => [
         {
-            problem: 'Cable problem upcoming',
+            problem: 'Cable Fault',
             timestamp: '24.9.2021 12:04',
             lng: 8.4409,
             lat: 47.2759
         },
         {
-            problem: 'Potential interference',
+            problem: 'Potential Interference',
             timestamp: '25.9.2021 15:07',
             lng: 8.4409,
             lat: 47.4759
         },
         {
-            problem: 'Cable problem upcoming',
+            problem: 'External Cause',
             timestamp: '25.9.2021 17:22',
             lng: 8.4409,
             lat: 47.6759
@@ -78,9 +78,9 @@ const Table = (props)=>{
     }, []);
 
     return (
-    <div>
+      <div >
         
-        <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
+        <table {...getTableProps()} style={{ border: 'solid 1px blue', marginBottom:'6px', width:'100%'}}>
           <thead>
             {headerGroups.map(headerGroup => (
               <tr {...headerGroup.getHeaderGroupProps()}>
@@ -124,8 +124,9 @@ const Table = (props)=>{
             })}
           </tbody>
         </table>
-        <div id="locationPicture" style={{width: '500px', height: '400px'}}></div>
+        <div id="locationPicture" style={{ width: '500px', height: '260px', marginTop:'40px' }}></div>
       </div>
+
     );
 }
 

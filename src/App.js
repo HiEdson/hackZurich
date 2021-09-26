@@ -27,9 +27,9 @@ function App() {
   
   //fot the time between one event and other
   //<Map></Map>
-  const [duration, setDuration] = useState(0)
+  const [duration, setDuration] = useState(180)
 
-  return (
+    return (
     <div className ='main'>
 
       <div className='table' style={{display: 'flex', flexDirection: 'row'}}>
@@ -37,6 +37,7 @@ function App() {
       <div className='tableComp'>
         <p id='message'></p>
         <div style={{display: 'flex', flexDirection: 'row'}}>
+          
             <Table mapComponent={mapComponentRef} />
             <CountDown time={duration}></CountDown>
         </div>

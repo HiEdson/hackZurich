@@ -8,10 +8,10 @@ import {Line} from 'react-chartjs-2'
 
 const ChartLine =()=>{
     const data = {
-        labels: ['Red', 'Blue', 'Green', 'Green', 'Green', 'Orange', 'Green', 'Purple', 'Orange'],
+        labels: ['9AM', '10AM', '11AM', '12PM', '13PM', '14PM' ],
         datasets: [{
             //first Grapth
-            label: 'current blablabla',
+            label: 'Fault occured',
             data: [2, 3, 3.2, 1.2, 2, 3],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -26,7 +26,7 @@ const ChartLine =()=>{
 
         //second graph
         {
-            label: 'voltage blablabla',
+            label: 'Places',
             data: [1, 1.001, 1.01, 7, 2, 3],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -45,7 +45,7 @@ const ChartLine =()=>{
     
     return (
 
-        <div style={{width:'52%', height:'250px'}} >
+        <div style={{width:'100%', height:'250px'}} >
             <Line 
                 data={data}
                 height={400}
