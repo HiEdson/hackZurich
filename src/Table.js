@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import {useTable} from 'react-table';
 import mapboxgl from 'mapbox-gl';
+import PlaceFromCoor from './PlaceFromCoor';
 
 const BingApiKey = 'AldVDbYSTRXvur92g-3l7xC6VlU8uykROwqGGL1P1L76lkHxgM0lO7avQOOs4Nam';
 
+
 const Table = (props)=>{
-  console.log(props);
 
     const data = React.useMemo(
         () => [

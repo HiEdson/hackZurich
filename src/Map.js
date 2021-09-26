@@ -1,16 +1,67 @@
 import React, { useRef, useEffect, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
+import mapboxgl, { Marker } from 'mapbox-gl';
 //import * as turf from '@turf/turf'
+import './Map.css'
+import PlaceFromCoor from './PlaceFromCoor';
+
+
+const dataTrain = [
+    
+    {
+        "alert_signal_data": {
+            "Latitude": 47.245234,
+            "Longitude": 8.187357,
+            "DateTime": '2021-02-25 16:32:55',
+            "noise": 165283,
+            "snr": 22.842204,
+            "RSSI": 2.30,
+          "disruptionDiscriptionEnglish": "Emergency brake activated",
+            "disruptionDiscriptionGerman": "Zwangsbremse wurde aktiviert",
+            "cause": "external interferance"
+        },
+        "occured_signal_data": {
+            "Latitude": 47.240980,
+            "Longitude": 8.189333,
+            "DateTime": '2021-02-25 16:35:57',
+            "noise": 165283,
+            "snr": 22.847238,
+            "RSSI": 2.16,
+          "disruptionDiscriptionEnglish": "Emergency brake activated",
+            "disruptionDiscriptionGerman": "Zwangsbremse wurde aktiviert",
+            "cause": "external interferance"
+        }
+    }
+
+]
+
+
+const token = 'pk.eyJ1IjoiaG9zc2lpIiwiYSI6ImNra2sxeXVlbjI0cW4ydnF1bXM4eWdyd3YifQ.clb20iW-d2O_Aj5WRYwIiQ';
+
+/*0:
+1:
+alert_signal_data: {Latitude: 47.245234, Longitude: 8.187357, DateTime: '2021-02-25 16:32:55', noise: 165283, snr: 22.842204, …}
+occured_signal_data: {Latitude: 47.24098, Longitude: 8.189333, DateTime: '2021-02-25 16:35:57', noise: 165283, snr: 22.847238, …}
+[[Prototype]]: Object
+2: {alert_signal_data: {…}, occured_signal_data: {…}}
+*/
+
+
+//console.log(dataTrain[0][1].alert_signal_data)
 
 const Map=(props)=>{
+
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [lng, setLng] = useState(8.5417);
-    const [lat, setLat] = useState(47.3769);
+    const [lat, setLat] = useState(47.3769); 
     const [zoom, setZoom] = useState(9);
+    const [showLoc, setshowLoc] = useState('');
     const [viewport, setViewport] = useState({
         width: '100%', height: 'calc(100vh - 162px)'
     });
+    
+    //for the message on the left side.
+    const showSms = useRef(null);
 
     useEffect(() => {
         if (map.current) return; // initialize map only once
@@ -23,14 +74,25 @@ const Map=(props)=>{
         props.setMapComponentRef(map);
 
         map.current.on('load', () => {
-            const marker = new mapboxgl.Marker()
-            marker.setLngLat([lng, lat])
-            marker.addTo(map.current)
 
+            const popup1 = new mapboxgl.Popup({ offset: 25 }).setHTML(
+                '<p> Alert signal started in <strong> </strong> at ' + dataTrain[0].alert_signal_data.DateTime+ '</p>'
+                
+                //ege egege gegegeeddhb ddidid dhddd dd <h4>.
+                //'<h4> This alert started at ' + dataTrain[0].alert_signal_data.DateTime + 'in ' + dataTrain[0].alert_signal_data.DateTime
+            );
+            const warning = document.createElement('div');
+            warning.className = 'warningmarker';
+            new mapboxgl.Marker(warning).setLngLat([dataTrain[0].alert_signal_data.Longitude, dataTrain[0].alert_signal_data.Latitude])
+                .setPopup(popup1)
+                .addTo(map.current);
+            
+            const popup = new mapboxgl.Popup({ offset: 25 }).setText(
+                'Construction on the Washington Monument began in 1848.'
+            );
             const el = document.createElement('div');
             el.className = 'marker';
-            new mapboxgl.Marker(el).setLngLat([8.4409, 47.2759]).addTo(map.current);
-
+            new mapboxgl.Marker(el).setLngLat([8.4409, 47.2759]).setPopup(popup).addTo(map.current);
             map.current.addLayer({
                 type: 'circle',
                 paint: {
@@ -39,6 +101,7 @@ const Map=(props)=>{
                     'circle-color': 'rgb(171, 72, 33)'
                 }
             });
+
 
             map.current.addSource('route', {
                 'type': 'geojson',
@@ -55,7 +118,7 @@ const Map=(props)=>{
                     }
                 }
             });
-
+        
             map.current.addLayer({
                 'id': 'route',
                 'type': 'line',
@@ -71,13 +134,13 @@ const Map=(props)=>{
             });
         });
 
-        //});
 
         map.current.once('load', () => {
             map.current.resize();
         });
 
     });
+
 
     //to update the new values of lat etc...
     useEffect(() => {
@@ -89,10 +152,15 @@ const Map=(props)=>{
         });
     });
 
-    return (
-        <div ref={mapContainer} style={{ height: "80vh", width: '50%' }} />
-    )
 
+
+
+    return (
+        <div>
+            
+            <div ref={mapContainer} style={{ height: "80vh", width: '540px' }} />
+        </div>
+    )
 
 }
 
